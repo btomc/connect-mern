@@ -102,6 +102,7 @@ const BtnSearch = styled.button`
     
     &:hover {
         background: #f4f4f4;
+        /* background: #222; */
     }
 `;
 

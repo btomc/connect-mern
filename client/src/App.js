@@ -1,4 +1,5 @@
 import React from 'react'
+import MainContent from './components/MainContent'
 import Navbar from './components/Navbar'
 import GlobalStyle from './globalStyles'
 
@@ -7,6 +8,7 @@ const App = () => {
     <div>
         <GlobalStyle />
         <Navbar />
+        <MainContent />
     </div>
   )
 }
