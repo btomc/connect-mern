@@ -10,7 +10,6 @@ const Form = () => {
                 <form autoComplete='off'>
                     <FormWrap>
                         <input name="creator" placeholder="Creator"  />
-                        <input name="title" placeholder="Title"  />
                         <textarea name="message" placeholder="Message" ></textarea>
                         <input name="tags" placeholder="Tags (coma separated)" />
                         <FileWrap><FileBase type='file' /></FileWrap>
@@ -26,12 +25,13 @@ const Form = () => {
 export default Form
 
 const FormContainer = styled.div`
-    width: 30%;
     background: #f2f2f2;
     border: 2px solid #3764af;
+    border: 2px solid #cccccc;
     margin: 2rem 2rem 2rem 0 ;
     border-radius: 4px;
     color: #274882;
+    max-height: 600px;
 `;
 
 const FormHeading = styled.h2`
@@ -42,7 +42,6 @@ const FormHeading = styled.h2`
 const PostForm = styled.div`
     min-width: 380px;
 `;
-
 
 const FormWrap = styled.div`
     display: flex;

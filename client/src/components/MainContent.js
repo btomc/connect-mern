@@ -18,4 +18,6 @@ const ContentContainer = styled.div`
     display: flex;
     justify-content: center;
     background: #d6d6d6;
+    position: relative;
+    
 `;

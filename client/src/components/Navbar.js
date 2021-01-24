@@ -36,8 +36,11 @@ const Nav = styled.div`
     height: 60px;
     display: flex;
     align-items: center;
-    padding: 2.5rem 0;
     justify-content: space-between;
+    padding: 2.5rem 0;
+    position: sticky;
+    z-index: 999;
+    top: 0;
 `;
 const NavLogo = styled.div`
     display: flex;
