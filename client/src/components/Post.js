@@ -99,6 +99,7 @@ const BookmarksWrap = styled.div`
 
 const Bookmarks = styled(FiBookmark)`
     font-size: 1.9rem;
+    cursor: pointer;
 `;
 
 const TagsWrap = styled.div`
@@ -137,7 +138,7 @@ const Icon = styled.i`
 `;
 
 const Btn = styled.button`
-    font-size: 1.1rem;
+    font-size: 1rem;
     color: #fff;
     color: #3764af;
     background: transparent;
@@ -147,6 +148,6 @@ const Btn = styled.button`
     margin: 1rem;
     display: flex;
     align-items: center;
-    padding: 8px 16px;
+    padding: 6px 16px;
     border-radius: 4px;
 `;

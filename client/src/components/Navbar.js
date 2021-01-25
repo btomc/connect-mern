@@ -31,17 +31,26 @@ const Navbar = () => {
 export default Navbar
 
 
-const Nav = styled.div`
+const Nav = styled.nav`
     background: #3764af;
-    height: 60px;
+    height: 80px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 2.5rem 0;
+    padding: .5rem 0;
     position: sticky;
     z-index: 999;
     top: 0;
 `;
+
+// const NavContainer = styled.div`
+//     display: flex;
+//     justify-content: space-between;
+//     height: 80px;
+//     z-index: 1;
+//     width: 100%;
+// `;
+
 const NavLogo = styled.div`
     display: flex;
     align-items: center;

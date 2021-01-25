@@ -16,4 +16,9 @@ export default Posts
 
 const PostsContainer = styled.div`
     width: 60%;
+    height: 100%;
+
+    &:last-child {
+        margin-bottom: 2rem;
+    }
 `;

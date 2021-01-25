@@ -19,5 +19,5 @@ const ContentContainer = styled.div`
     justify-content: center;
     background: #d6d6d6;
     position: relative;
-    
+    z-index: 1;
 `;

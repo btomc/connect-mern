@@ -13,8 +13,10 @@ const Form = () => {
                         <textarea name="message" placeholder="Message" ></textarea>
                         <input name="tags" placeholder="Tags (coma separated)" />
                         <FileWrap><FileBase type='file' /></FileWrap>
-                        <BtnSubmit type='submit'>Submit</BtnSubmit>
-                        <BtnClear>Clear</BtnClear>
+                        <BtnWrap>
+                            <BtnClear>Clear</BtnClear>
+                            <BtnSubmit type='submit'>Submit</BtnSubmit>
+                        </BtnWrap>
                     </FormWrap>
                 </form>
             </PostForm>
@@ -26,17 +28,19 @@ export default Form
 
 const FormContainer = styled.div`
     background: #f2f2f2;
-    border: 2px solid #3764af;
     border: 2px solid #cccccc;
     margin: 2rem 2rem 2rem 0 ;
     border-radius: 4px;
     color: #274882;
-    max-height: 600px;
+    max-height: 480px;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 112px;
 `;
 
 const FormHeading = styled.h2`
     text-align: center;
-    margin: 1.5rem 0 1.5rem 0;
+    margin: 1.1rem 0 1.1rem 0;
 `;
 
 const PostForm = styled.div`
@@ -50,12 +54,12 @@ const FormWrap = styled.div`
 
     input,
     textarea {
-        padding: 14px 32px 14px 16px;
+        padding: 12px 32px 12px 16px;
         border-radius: 6px;
         outline: none;
         width: 280px;
         color: #274882;
-        margin-bottom: 1.5rem;
+        margin-bottom: 1.2rem;
         border: 1.5px solid #d6d6d6;
         font-family: inherit;
     }
@@ -78,6 +82,11 @@ const FormWrap = styled.div`
 const FileWrap = styled.div`
     border: none;
 `;
+
+const BtnWrap = styled.div`
+    display: flex;
+`;
+
 const BtnSubmit = styled.button`
     background: #3764af;
     white-space: nowrap;
@@ -122,6 +131,7 @@ const BtnClear = styled.button`
     font-size: 14px;
     text-transform: uppercase;
     margin-bottom: 1.2rem;
+    margin-right: 1rem;
 
     &:hover {
         opacity: 0.8;
