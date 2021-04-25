@@ -1,31 +1,38 @@
 import React from 'react'
 import styled from 'styled-components'
-import img1 from '../images/img-1.jpg'
-import profile2 from '../images/profile-2.jpg'
+import img1 from '../images/img-2.jpg'
+import profile2 from '../images/profile-3.jpg'
 import { FiBookmark } from 'react-icons/fi'
 import { AiOutlineLike, AiFillDelete } from 'react-icons/ai'
 import { GoCommentDiscussion } from 'react-icons/go'
+// import moment from 'moment'
 
-const Post = () => {
+const Post = ({ post }) => {
     return (
         <PostContainer>
-            <CreatorWrap>
+            <CreatorContent>
                 <Creator>
                     <ProfilePic><ImgProfile src={profile2} alt='man' /></ProfilePic>
-                    <p>Tommy Johnson</p>
+                    <CreatorWrap>
+                        <CreatorName>{post.creator}</CreatorName>
+                        <Date>
+                            {post.createdAt.substring(0, 10)}
+                            {' - '}
+                            {post.createdAt.substring(11, 16)}
+                        </Date>
+                    </CreatorWrap>
                 </Creator>
-                <Date>1 hour ago</Date>
-            </CreatorWrap>
+            </CreatorContent>
             <BookmarksWrap>
                 <Bookmarks><FiBookmark /></Bookmarks>
             </BookmarksWrap>
             <TagsWrap>
-                <Tags>#chill #relax #peace</Tags>
+                <Tags>{post.tags.map((tag) => `#${tag} `)}</Tags>
             </TagsWrap>
             <PostContent>
-                <PostMessage>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum, ducimus voluptates illo libero et impedit, rem repellat nostrum omnis sit beatae reprehenderit debitis, esse autem deleniti vitae architecto consequuntur inventore?</PostMessage>
+                <PostMessage>{post.message}</PostMessage>
             </PostContent>
-            <PostPicture><Img src={img1} alt='beach' /></PostPicture>            
+            <PostPicture>{/*<Img src={post.image} alt='picture' />*/}</PostPicture>                                  
             <PostActions>
                 <Btn>
                     <Icon><AiOutlineLike /></Icon>
@@ -44,6 +51,45 @@ const Post = () => {
     )
 }
 
+// const Post = () => {
+//     return (
+//         <PostContainer>
+//             <CreatorWrap>
+//                 <Creator>
+//                     <ProfilePic><ImgProfile src={profile2} alt='man' /></ProfilePic>
+//                     <p>Tommy Johnson</p>
+//                 </Creator>
+//                 <Date>1 hour ago</Date>
+//             </CreatorWrap>
+//             <BookmarksWrap>
+//                 <Bookmarks><FiBookmark /></Bookmarks>
+//             </BookmarksWrap>
+//             <TagsWrap>
+//                 <Tags>#chill #relax #peace</Tags>
+//             </TagsWrap>
+//             <PostContent>
+//                 <PostMessage>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum, ducimus voluptates illo libero et impedit, rem repellat nostrum omnis sit beatae reprehenderit debitis, esse autem deleniti vitae architecto consequuntur inventore?</PostMessage>
+//             </PostContent>
+//             <PostPicture><Img src={img1} alt='beach' /></PostPicture>            
+//             <PostActions>
+//                 <Btn>
+//                     <Icon><AiOutlineLike /></Icon>
+//                     <p>Like</p>
+//                 </Btn>
+//                 <Btn>
+//                     <Icon><GoCommentDiscussion /></Icon>
+//                     <p>Comment</p>
+//                 </Btn>
+//                 <Btn>
+//                     <Icon><AiFillDelete /></Icon>
+//                     <p>Delete</p>
+//                 </Btn>
+//             </PostActions>
+//         </PostContainer>
+//     )
+// }
+
+
 export default Post
 
 const PostContainer = styled.div`
@@ -55,26 +101,36 @@ const PostContainer = styled.div`
     position: relative;
     color: #1e3866;
     background: #f2f2f2;
+
+    @media screen and (max-width: 880px) {
+        margin-right: 0;
+        margin-left: 0;
+    } 
 `;
 
-const CreatorWrap = styled.div`
+const CreatorContent = styled.div`
     display: flex;
     flex-direction: column;
     margin: 1.5rem 0 1rem 1.5rem;
 `;
 
-const Creator = styled.h3`
+const Creator = styled.div`
     display: flex;
     align-items: center;
+`;
 
-    p {
-        font-size: 1.2rem;
-    }
+const CreatorWrap = styled.div`
+    display: flex;
+    flex-direction: column;
+`;
+
+const CreatorName = styled.h3`
+    font-size: 1.1rem;
 `;
 
 const ProfilePic = styled.div`
-    height: 3.5rem;
-    width: 3.5rem;
+    height: 3.2rem;
+    width: 3.2rem;
     margin-right: 1rem;
 `;
 
@@ -83,17 +139,18 @@ const ImgProfile = styled.img`
     width: 100%;
     border-radius: 50%;
     border: 2px solid #ec1e84;
+    /* border: 2px solid #27477f; */
 `;
 
 const Date = styled.p`
-    font-size: .9rem;
-    margin-top: .3rem;
+    font-size: .75rem;
+    /* margin-top: .4rem; */
 `;
 
 const BookmarksWrap = styled.div`
     position: absolute;
     top: 30px;
-    right: 30px;
+    right: 25px;
     color: #3764af;
 `;
 
@@ -106,7 +163,7 @@ const TagsWrap = styled.div`
     margin: .7rem 0 1.5rem 1.5rem;
 `;
 const Tags = styled.p`
-    font-size: .9rem;
+    font-size: .8rem;
 `;
 
 const PostContent = styled.div`
@@ -129,6 +186,7 @@ const Img = styled.img`
 const PostActions = styled.div`
     display: flex;
     justify-content: space-evenly;
+    border-top: 1px solid #d6d6d6;
 `;
 
 const Icon = styled.i`
@@ -150,4 +208,12 @@ const Btn = styled.button`
     align-items: center;
     padding: 6px 16px;
     border-radius: 4px;
+
+    @media screen and (max-width: 500px) {
+        font-size: 1.2rem;
+
+        p {
+            display: none;
+        }
+    } 
 `;

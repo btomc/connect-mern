@@ -1,24 +1,97 @@
-import React from 'react'
+import React, { useState} from 'react'
 import styled from 'styled-components'
-import FileBase from 'react-file-base64'
+// import FileBase from 'react-file-base64'
+import axios from 'axios'
+import { useDispatch } from 'react-redux'
+import { createPost } from '../actions/posts'
 
 const Form = () => {
+    const [postData, setPostData] = useState({
+        creator: '',
+        message: '',
+        tags: '',
+    })
+    const [image, setImage] = useState('')
+    const [uploading, setUploading] = useState(false)
+
+    const dispatch = useDispatch()
+
+    const uploadFileHandler = async(e) => {
+        const file = e.target.files[0]
+        const formData = new FormData()
+        formData.append('image', file)
+        setUploading(true)
+
+        try {
+            const config = {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            }
+
+            const { data } = await axios.post('/upload', formData, config)
+
+            setImage(data)
+            setUploading(false)
+        } catch (error) {
+            console.error(error)
+            setUploading(false)
+        }
+    }
+
+    const handleSubmit = (e) =>  {
+        e.preventDefault()
+
+        dispatch(createPost(postData))
+    }
+
+    const handleClear = () => {
+
+    }
+ 
     return (
         <FormContainer>
             <FormHeading>Creating a Post</FormHeading>
-            <PostForm>
-                <form autoComplete='off'>
+            <PostForm autoComplete='off' noValidate onSubmit={handleSubmit}>
                     <FormWrap>
-                        <input name="creator" placeholder="Creator"  />
-                        <textarea name="message" placeholder="Message" ></textarea>
-                        <input name="tags" placeholder="Tags (coma separated)" />
-                        <FileWrap><FileBase type='file' /></FileWrap>
+                        <input 
+                            name="creator" 
+                            placeholder="Creator" 
+                            value={postData.creator} 
+                            onChange={(e) => setPostData({ ...postData, creator: e.target.value })}  
+                        />
+                        <textarea 
+                            name="message" 
+                            placeholder="Message" 
+                            value={postData.message} 
+                            onChange={(e) => setPostData({ ...postData, message: e.target.value })}
+                        ></textarea>
+                        <input 
+                            name="tags" 
+                            placeholder="Tags (coma separated)" 
+                            value={postData.tags} 
+                            onChange={(e) => setPostData({ ...postData, tags: e.target.value })}
+                        />
+                        <input 
+                            type="text" 
+                            placeholder="Enter image url" 
+                            value={image} 
+                            onChange={(e) => setImage(e.target.value)}
+                            style={{ marginBottom: '5px'}}
+                        />
+                        <FileWrap>
+                            <FileInput 
+                                type='file' 
+                                multiple={false}
+                                onChange={uploadFileHandler}
+                            />
+                            {uploading}
+                        </FileWrap>
                         <BtnWrap>
-                            <BtnClear>Clear</BtnClear>
+                            <BtnClear onClick={handleClear}>Clear</BtnClear>
                             <BtnSubmit type='submit'>Submit</BtnSubmit>
                         </BtnWrap>
                     </FormWrap>
-                </form>
             </PostForm>
         </FormContainer>
     )
@@ -32,10 +105,28 @@ const FormContainer = styled.div`
     margin: 2rem 2rem 2rem 0 ;
     border-radius: 4px;
     color: #274882;
-    max-height: 480px;
-    position: -webkit-sticky;
-    position: sticky;
+    max-height: 540px;
+    /* position: -webkit-sticky;
+    position: sticky; */
     top: 112px;
+
+    @media screen and (max-width: 1170px) {
+        margin-right: 0;
+        margin-left: 1rem;
+    } 
+
+    @media screen and (max-width: 880px) {
+        width: 90%;
+        margin-left: 0;
+        margin-right: 0;
+    } 
+
+    @media screen and (max-width: 420px) {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    } 
 `;
 
 const FormHeading = styled.h2`
@@ -43,8 +134,16 @@ const FormHeading = styled.h2`
     margin: 1.1rem 0 1.1rem 0;
 `;
 
-const PostForm = styled.div`
+const PostForm = styled.form`
     min-width: 380px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    @media screen and (max-width: 420px) {
+        width: 90%;
+        min-width: 0;
+    } 
 `;
 
 const FormWrap = styled.div`
@@ -54,7 +153,7 @@ const FormWrap = styled.div`
 
     input,
     textarea {
-        padding: 12px 32px 12px 16px;
+        padding: 8px 12px;
         border-radius: 6px;
         outline: none;
         width: 280px;
@@ -75,12 +174,25 @@ const FormWrap = styled.div`
 
     textarea {
         resize: none;
-        height: 120px;
+        height: 100px;
+        font-size: .9rem;
     }
+
+    @media screen and (max-width: 420px) {
+        input,
+        textarea {
+            width: 90%;
+        }
+    } 
 `;
 
 const FileWrap = styled.div`
     border: none;
+`;
+
+const FileInput = styled.input`
+    border: none;
+    margin-bottom: 0;
 `;
 
 const BtnWrap = styled.div`

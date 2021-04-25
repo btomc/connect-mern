@@ -1,25 +1,32 @@
+import express from 'express'
 import PostMessage from '../models/postModel.js'
 
-export const getPosts = async (req, res) => {
-    try {
-        const postMessage = await PostMessage.find()
 
-        res.status(200).json(postMessage)
+const getPosts = async (req, res) => {
+    try {
+        const postMessages = await PostMessage.find()
+
+        res.status(200).json(postMessages)
     } catch (error) {
         res.status(404).json({ message: error.message })
     }
 }
 
-export const createPost = async (req, res) => {
-    const post = req.body
+// export const getPost = async (req, res) => {}
 
-    const newPost = new PostMessage(post)
+const createPost = async (req, res) => {
+    // const post = req.body
+    const { message, image, creator, tags } = req.body
+
+    const newPostMessage = new PostMessage({ message, image, creator, tags})
 
     try {
-        await newPost.save()
+        await newPostMessage.save()
 
-        res.status(201).json(newPost)
+        res.status(201).json(newPostMessage)
     } catch (error) {
         res.status(409).json({ message: error.message })
     }
 }
+
+export { getPosts, createPost}
