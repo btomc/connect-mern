@@ -30,6 +30,7 @@ const SidebarContainer = styled.div`
     width: 350px;
     height: 100%;
     background: #10225b;
+    background: #142970;
     display: grid;
     align-items: center;
     top: 0;

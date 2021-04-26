@@ -3,11 +3,12 @@ import styled from 'styled-components'
 import img1 from '../images/img-2.jpg'
 import profile2 from '../images/profile-3.jpg'
 import { FiBookmark } from 'react-icons/fi'
+import { HiDotsHorizontal } from 'react-icons/hi'
 import { AiOutlineLike, AiFillDelete } from 'react-icons/ai'
 import { GoCommentDiscussion } from 'react-icons/go'
 // import moment from 'moment'
 
-const Post = ({ post }) => {
+const Post = ({ post, setCurrentId }) => {
     return (
         <PostContainer>
             <CreatorContent>
@@ -24,7 +25,8 @@ const Post = ({ post }) => {
                 </Creator>
             </CreatorContent>
             <BookmarksWrap>
-                <Bookmarks><FiBookmark /></Bookmarks>
+                <Bookmarks />
+                <EditBtn onClick={() => setCurrentId(post._id)}><HiDotsHorizontal /></EditBtn>
             </BookmarksWrap>
             <TagsWrap>
                 <Tags>{post.tags.map((tag) => `#${tag} `)}</Tags>
@@ -157,6 +159,15 @@ const BookmarksWrap = styled.div`
 const Bookmarks = styled(FiBookmark)`
     font-size: 1.9rem;
     cursor: pointer;
+`;
+
+const EditBtn = styled.button`
+    font-size: 1.7rem;
+    cursor: pointer;
+    margin-left: 10px;
+    outline: none;
+    border: none;
+    color: #3764af;
 `;
 
 const TagsWrap = styled.div`

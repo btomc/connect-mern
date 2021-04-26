@@ -44,6 +44,7 @@ export default Navbar
 const Nav = styled.nav`
     /* background: #3764af; */
     background: #122566;
+    background: #162f7f;
     height: 60px;
     display: flex;
     align-items: center;

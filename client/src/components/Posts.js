@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux'
 import styled from 'styled-components'
 import Post from './Post'
 
-const Posts = () => {
+const Posts = ({ setCurrentId }) => {
     const posts = useSelector((state) => state.posts)
 
     console.log(posts)
@@ -12,7 +12,7 @@ const Posts = () => {
         <PostsContainer>
             {posts.map((post) => (
                 <PostsWrap key={post._id}>
-                    <Post post={post} />
+                    <Post post={post} setCurrentId={setCurrentId} />
                 </PostsWrap>
             ))}
            {/* <Post />

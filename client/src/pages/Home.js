@@ -1,14 +1,16 @@
-import React from 'react'
+import React, {useState} from 'react'
 import styled from 'styled-components'
 import Form from '../components/Form'
 import Posts from '../components/Posts'
 
 const Home = () => {
+    const [currentId, setCurrentId] = useState(null)
+
     return (
         <ContentContainer>
             <ContentWrap>
-            <Form />
-            <Posts />
+            <Form currentId={currentId} setCurrentId={setCurrentId} />
+            <Posts setCurrentId={setCurrentId} />
             </ContentWrap>
         </ContentContainer>
     )
@@ -20,6 +22,7 @@ const ContentContainer = styled.div`
     display: flex;
     justify-content: center;
     background: #d6d6d6;
+    background: #ccc;
     width: 100%;
 `
 

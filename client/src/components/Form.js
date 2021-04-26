@@ -1,11 +1,10 @@
-import React, { useState} from 'react'
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
-// import FileBase from 'react-file-base64'
 import axios from 'axios'
-import { useDispatch } from 'react-redux'
-import { createPost } from '../actions/posts'
+import { useDispatch, useSelector } from 'react-redux'
+import { createPost, updatePost } from '../actions/posts'
 
-const Form = () => {
+const Form = ({ currentId, setCurrentId}) => {
     const [postData, setPostData] = useState({
         creator: '',
         message: '',
@@ -14,6 +13,7 @@ const Form = () => {
     const [image, setImage] = useState('')
     const [uploading, setUploading] = useState(false)
 
+    const post = useSelector((state) => currentId ? state.posts.find((p) => p._id === currentId) : null)
     const dispatch = useDispatch()
 
     const uploadFileHandler = async(e) => {
@@ -39,19 +39,30 @@ const Form = () => {
         }
     }
 
+    useEffect(() => {
+        if(post) setPostData(post)
+    }, [post])
+
     const handleSubmit = (e) =>  {
         e.preventDefault()
 
-        dispatch(createPost(postData))
+        if(currentId) {
+            dispatch(updatePost(currentId, postData))
+            handleClear()
+        } else {
+            dispatch(createPost(postData))
+            handleClear()
+        }
     }
 
     const handleClear = () => {
-
+        setCurrentId(null)
+        setPostData({ creator: '', message: '', tags: '',})
     }
  
     return (
         <FormContainer>
-            <FormHeading>Creating a Post</FormHeading>
+            <FormHeading>{currentId ? 'Editing' : 'Creating'} a Post</FormHeading>
             <PostForm autoComplete='off' noValidate onSubmit={handleSubmit}>
                     <FormWrap>
                         <input 
