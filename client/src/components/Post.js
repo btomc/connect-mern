@@ -7,8 +7,12 @@ import { HiDotsHorizontal } from 'react-icons/hi'
 import { AiOutlineLike, AiFillDelete } from 'react-icons/ai'
 import { GoCommentDiscussion } from 'react-icons/go'
 // import moment from 'moment'
+import { useDispatch } from 'react-redux' 
+import { deletePost } from '../actions/posts' 
 
 const Post = ({ post, setCurrentId }) => {
+    const dispatch = useDispatch()
+
     return (
         <PostContainer>
             <CreatorContent>
@@ -44,7 +48,7 @@ const Post = ({ post, setCurrentId }) => {
                     <Icon><GoCommentDiscussion /></Icon>
                     <p>Comment</p>
                 </Btn>
-                <Btn>
+                <Btn onClick={() => dispatch(deletePost(post._id))}>
                     <Icon><AiFillDelete /></Icon>
                     <p>Delete</p>
                 </Btn>
