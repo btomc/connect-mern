@@ -81,7 +81,7 @@ const Form = ({ currentId, setCurrentId}) => {
                             name="tags" 
                             placeholder="Tags (coma separated)" 
                             value={postData.tags} 
-                            onChange={(e) => setPostData({ ...postData, tags: e.target.value })}
+                            onChange={(e) => setPostData({ ...postData, tags: e.target.value.split(',') })}
                         />
                         <input 
                             type="text" 

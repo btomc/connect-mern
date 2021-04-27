@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import img1 from '../images/img-2.jpg'
+// import img1 from '../images/img-2.jpg'
 import profile2 from '../images/profile-3.jpg'
 import { FiBookmark } from 'react-icons/fi'
 import { HiDotsHorizontal } from 'react-icons/hi'
@@ -194,10 +194,10 @@ const PostPicture = styled.div`
     justify-content: center;
     align-items: center;
 `;
-const Img = styled.img`
-    width: 100%;
-    height: 100%;
-`;
+// const Img = styled.img`
+//     width: 100%;
+//     height: 100%;
+// `;
 const PostActions = styled.div`
     display: flex;
     justify-content: space-evenly;
