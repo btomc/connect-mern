@@ -2,17 +2,21 @@ import React, {useState} from 'react'
 import styled from 'styled-components'
 import Form from '../components/Form'
 import Posts from '../components/Posts'
+import Navbar from '../components/Navbar'
 
 const Home = () => {
     const [currentId, setCurrentId] = useState(null)
 
     return (
+        <>
+        <Navbar />
         <ContentContainer>
             <ContentWrap>
             <Form currentId={currentId} setCurrentId={setCurrentId} />
             <Posts setCurrentId={setCurrentId} />
             </ContentWrap>
         </ContentContainer>
+        </>
     )
 }
 
