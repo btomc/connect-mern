@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 import logo from '../images/logo.svg'
@@ -10,10 +10,22 @@ import Sidebar from '../components/Sidebar'
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false)
+    const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')))
+
+    // console.log(user)
 
     const toggle = () => {
         setIsOpen(!isOpen)
     }
+
+    // useEffect(() => {
+    //     const token = user?.token
+
+    //     // JWT
+
+    //     setUser(JSON.parse(localStorage.getItem('profile')))
+    // }, [])
+
 
     return (
         <Nav>
@@ -26,13 +38,17 @@ const Navbar = () => {
                     <BtnSearch><IconSearch /></BtnSearch>
                     {/* <SearchBar type='text' placeholder='Search Connect' /> */}
                 </SearchWrapper>
+                {/* {user?.result ? ( */}
                 <ProfileWrapper>
-                    <PhotoWrap><Img src={profile1} alt='person' /></PhotoWrap>
-                    <Name>Alice Campbell</Name>
+                    {/* <PhotoWrap><Img src={profile1} alt='person' /></PhotoWrap> */}
+                    <PhotoWrap><Img src={user?.result.imageUrl} alt={user?.result.name} /></PhotoWrap>
+                    <Name>{user?.result.name}</Name>
                     <Favourites><FiBookmark /></Favourites>
                     <Dropdown onClick={toggle}><TiArrowSortedDown /></Dropdown>
-                    <Sidebar isOpen={isOpen} toggle={toggle} />
+                    <Sidebar isOpen={isOpen} toggle={toggle} setUser={setUser} />
                 </ProfileWrapper>
+
+                {/* ) : <p style={{ color: '#f2f2f2'}}>Please Log in to see the content</p>} */}
             </NavMenu>
         </Nav>
     )

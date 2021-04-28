@@ -1,11 +1,23 @@
 import React from 'react'
 import styled from 'styled-components'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
 import {FaTimes} from 'react-icons/fa'
 import {IoMdPerson} from 'react-icons/io'
 import {MdCollectionsBookmark} from 'react-icons/md'
 
-const Sidebar = ({ isOpen, toggle}) => {
+const Sidebar = ({ isOpen, toggle, setUser}) => {
+    const dispatch = useDispatch()
+    const history = useHistory()
+
+    const logout = () => {
+        dispatch({ type: 'LOGOUT' })
+        
+        history.push('/login')
+
+        setUser(null)
+    }
+
     return (
         <SidebarContainer isOpen={isOpen} onClick={toggle}>
             <Icon>
@@ -16,7 +28,7 @@ const Sidebar = ({ isOpen, toggle}) => {
                 <SidebarLink to='/'><IoMdPerson style={{ marginRight: '.8rem'}} />Profile</SidebarLink>
             </SidebarMenu>
             <SidebarBtnWrap>
-                <LogoutBtn>Logout</LogoutBtn>
+                <LogoutBtn onClick={logout}>Logout</LogoutBtn>
             </SidebarBtnWrap>
         </SidebarContainer>
     )

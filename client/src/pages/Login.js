@@ -1,9 +1,16 @@
 import React, {useState} from 'react'
+import { GoogleLogin } from 'react-google-login'
+import { useDispatch } from 'react-redux'
+import { useHistory } from 'react-router-dom'
 import styled from 'styled-components'
 import Input from '../components/Input'
 
 const Login = () => {
     const [isSignup, setIsSignup] = useState(false)
+    const dispatch = useDispatch()
+    const history = useHistory()
+
+    const GOOGLE_ID = process.env.REACT_APP_GOOGLE_CLIENT_ID
 
     const handleSubmit = () => {
 
@@ -15,6 +22,26 @@ const Login = () => {
 
     const switchMode = () => {
         setIsSignup((prevIsSignup) => !prevIsSignup)
+    }
+
+    const googleSuccess = async (res) => {
+        // console.log(res)
+        // console.log('Success')
+        const result = res?.profileObj
+        const token = res?.tokenId
+        
+        try {
+            dispatch({ type: 'AUTH', data: { result, token }})
+
+            history.push('/')
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    const googleFailure = (error) => {
+        console.log(error)
+        console.log('Google Sign In was unsuccessful. Try Again Later')
     }
 
     return (
@@ -45,6 +72,18 @@ const Login = () => {
                 <BtnSubmit type='submit'>
                     {isSignup ? 'Sign Up' : 'Sign In'}
                 </BtnSubmit>
+                <GoogleLogin 
+                    clientId={GOOGLE_ID}
+                    render={(renderProps) => (
+                        <Btn 
+                            style={{ background: '#f7f7f7', color: '#162f7f'}}
+                            onClick={renderProps.onClick}
+                        >Login with Google</Btn>
+                    )}
+                    onSuccess={googleSuccess}
+                    onFailure={googleFailure}
+                    cookiePolicy='single_host_origin'
+                />
                 <Btn onClick={switchMode}>
                     {isSignup ? 'Already have an account? Sign in' : "Don't have an account? Sign Up"}
                 </Btn>
