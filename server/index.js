@@ -6,6 +6,7 @@ import cors from 'cors'
 
 import connectDB from './config/db.js'
 import postRoutes from './routes/posts.js'
+import userRoutes from './routes/users.js'
 import uploadRoutes from './routes/uploadRoutes.js'
 
 dotenv.config()
@@ -21,6 +22,7 @@ app.use(cors())
 
 app.use('/posts', postRoutes)
 app.use('/upload', uploadRoutes)
+app.use('/user', userRoutes)
 
 const __dirname = path.resolve()
 app.use('/posts/uploads', express.static(path.join(__dirname, '/uploads')))
